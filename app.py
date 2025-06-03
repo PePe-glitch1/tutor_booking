@@ -178,5 +178,5 @@ def edit_booking(booking_id):
         return redirect(url_for('my_bookings'))
     return render_template('edit_booking.html', booking=booking)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')

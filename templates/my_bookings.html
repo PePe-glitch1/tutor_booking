@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="mb-4">
+  {% if is_tutor %}
+    Мої учні (хто забронював мене)
+  {% else %}
+    Мої заявки
+  {% endif %}
+</h2>
+
+{% if not bookings %}
+  <div class="alert alert-warning mt-4 text-center">
+    У вас ще немає заявок на заняття.
+  </div>
+{% else %}
+  <div class="row">
+    {% for booking in bookings %}
+      <div class="col-md-6 mb-4">
+        <div class="card shadow-sm rounded-4 p-3 d-flex flex-row align-items-center justify-content-between">
+          <div>
+            {% if is_tutor %}
+              <div><b>Учень:</b> {{ booking.username }}</div>
+              <div><b>Дата та час:</b> {{ booking.date }}</div>
+              <div><b>Статус:</b> {{ booking.status }}</div>
+            {% else %}
+              <div class="d-flex align-items-center mb-2">
+                <img src="{{ booking.tutor_img }}" width="48" height="48" class="rounded-circle me-3" alt="Avatar" style="object-fit:cover;">
+                <div>
+                  <b>{{ booking.tutor_name }}</b><br>
+                  <span class="small text-secondary">{{ booking.subject }}</span>
+                </div>
+              </div>
+              <div><b>Дата та час:</b> {{ booking.date }}</div>
+              <div><b>Статус:</b> {{ booking.status }}</div>
+            {% endif %}
+          </div>
+          <div class="ms-3 d-flex flex-column">
+            {% if not is_tutor %}
+              <a href="{{ url_for('edit_booking', booking_id=booking.id) }}" class="btn btn-outline-primary mb-2">Змінити</a>
+              <form method="post" action="{{ url_for('delete_booking', booking_id=booking.id) }}">
+                <button type="submit" class="btn btn-outline-danger">Видалити</button>
+              </form>
+            {% else %}
+              <form method="post" action="{{ url_for('delete_booking', booking_id=booking.id) }}">
+                <button type="submit" class="btn btn-outline-danger">Відмовитися від запиту учня</button>
+              </form>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+{% endblock %}

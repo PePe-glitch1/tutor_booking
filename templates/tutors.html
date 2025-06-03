@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="mb-4">Каталог репетиторів</h2>
+
+<!-- Фільтри за предметом та категорією -->
+<form method="get" class="row g-3 mb-4 align-items-end">
+  <div class="col-md-4">
+    <label class="form-label">Предмет</label>
+    <select class="form-select" name="subject">
+      <option value="">Всі предмети</option>
+      <option value="Англійська мова" {% if request.args.get('subject') == 'Англійська мова' %}selected{% endif %}>Англійська мова</option>
+      <option value="Математика" {% if request.args.get('subject') == 'Математика' %}selected{% endif %}>Математика</option>
+      <option value="Хімія" {% if request.args.get('subject') == 'Хімія' %}selected{% endif %}>Хімія</option>
+      <option value="Українська мова" {% if request.args.get('subject') == 'Українська мова' %}selected{% endif %}>Українська мова</option>
+      <option value="Фізика" {% if request.args.get('subject') == 'Фізика' %}selected{% endif %}>Фізика</option>
+      <option value="Інше" {% if request.args.get('subject') == 'Інше' %}selected{% endif %}>Інше</option>
+    </select>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Для кого</label>
+    <select class="form-select" name="level">
+      <option value="">Усі категорії</option>
+      <option value="Школа" {% if request.args.get('level') == 'Школа' %}selected{% endif %}>Для школи</option>
+      <option value="Університет" {% if request.args.get('level') == 'Університет' %}selected{% endif %}>Для університету</option>
+      <option value="Дорослі" {% if request.args.get('level') == 'Дорослі' %}selected{% endif %}>Для дорослих</option>
+    </select>
+  </div>
+  <div class="col-md-4">
+    <button type="submit" class="btn btn-primary w-100">Застосувати фільтр</button>
+  </div>
+</form>
+
+<!-- Список репетиторів -->
+<div class="row">
+  {% for tutor in tutors %}
+    {% if (not request.args.get('subject') or tutor.subject == request.args.get('subject')) 
+        and (not request.args.get('level') or tutor.level == request.args.get('level')) %}
+    <div class="col-md-4 text-center mb-4">
+      <div class="card p-3 shadow-sm rounded-4">
+        <img src="{{ tutor.img }}" alt="{{ tutor.username }}" class="rounded-circle mx-auto mb-3" style="width:100px;height:100px;object-fit:cover;">
+        <h5>{{ tutor.username }}</h5>
+        <div class="mb-1 small text-secondary">{{ tutor.subject }} • {{ tutor.level }}</div>
+        {% if tutor.about %}
+          <div class="mb-2 text-muted" style="min-height:36px;">{{ tutor.about }}</div>
+        {% endif %}
+        <a href="{{ url_for('book', tutor_id=tutor.id) }}" class="btn btn-outline-primary">Записатись</a>
+      </div>
+    </div>
+    {% endif %}
+  {% endfor %}
+</div>
+{% endblock %}

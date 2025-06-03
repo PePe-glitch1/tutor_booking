@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 70vh;">
+  <div class="col-md-6 col-lg-5">
+    <div class="card p-4 shadow-sm rounded-4">
+      <div class="text-center mb-4">
+        <img src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/000000/external-login-digital-marketing-flatart-icons-outline-flatarticons.png" width="48" class="mb-2" alt="Логін">
+        <h2 class="mb-0">Вхід до системи</h2>
+      </div>
+      <form method="post">
+        <div class="mb-3">
+          <label class="form-label">Логін</label>
+          <input class="form-control" type="text" name="username" placeholder="Введіть логін" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Пароль</label>
+          <input class="form-control" type="password" name="password" placeholder="Введіть пароль" required>
+        </div>
+        <div class="d-grid gap-2">
+          <button class="btn btn-primary btn-lg" type="submit">Увійти</button>
+        </div>
+      </form>
+      <div class="text-center mt-3">
+        <span>Ще не маєте акаунта?</span>
+        <a href="{{ url_for('register') }}">Зареєструватися</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

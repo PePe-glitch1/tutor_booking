@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- Hero-секція -->
+<div class="row align-items-center mb-5">
+  <div class="col-md-7">
+    <h1 class="display-4 fw-bold mb-3">TutorLink — онлайн-платформа для пошуку та бронювання репетиторів</h1>
+    <p class="lead">Легкий пошук, швидке бронювання і лише перевірені викладачі з реальними відгуками.<br>
+      Розпочни шлях до знань разом з TutorLink!</p>
+    <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg mt-3">Спробувати безкоштовно</a>
+  </div>
+  <div class="col-md-5 text-center">
+    <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?fit=crop&w=400&q=80" alt="Онлайн навчання" class="img-fluid rounded-4 shadow" style="max-height: 260px;">
+  </div>
+</div>
+
+<!-- Кращі викладачі -->
+<h2 class="mb-4">Наші кращі викладачі</h2>
+<div class="row mb-5">
+  {% set best_tutors = [
+    {'name': 'Олена Сидоренко', 'desc': 'Викладач англійської з досвідом 7 років.', 'img': 'https://randomuser.me/api/portraits/women/45.jpg'},
+    {'name': 'Ігор Коваленко', 'desc': 'Математика та підготовка до ЗНО.', 'img': 'https://randomuser.me/api/portraits/men/33.jpg'},
+    {'name': 'Тетяна Іванова', 'desc': 'Хімія, індивідуальні заняття для школярів.', 'img': 'https://randomuser.me/api/portraits/women/52.jpg'}
+  ] %}
+  {% for tutor in best_tutors %}
+  <div class="col-md-4 text-center mb-3">
+    <div class="card p-3 shadow-sm rounded-4">
+      <img src="{{ tutor.img }}" alt="{{ tutor.name }}" class="rounded-circle mx-auto mb-3" style="width:100px;height:100px;object-fit:cover;">
+      <h5>{{ tutor.name }}</h5>
+      <div class="mb-2 text-muted" style="min-height:36px;">{{ tutor.desc }}</div>
+      <a href="{{ url_for('register') }}" class="btn btn-outline-primary">Записатись</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- Відгуки -->
+<h2 class="mb-4">Відгуки студентів</h2>
+<div class="row mb-5">
+  {% set reviews = [
+    {'name': 'Андрій', 'text': 'Дуже зручно знаходити викладача і одразу бронювати заняття!', 'img': 'https://randomuser.me/api/portraits/men/22.jpg'},
+    {'name': 'Віта', 'text': 'Сервіс допоміг підготуватись до ЗНО з математики. Дякую!', 'img': 'https://randomuser.me/api/portraits/women/29.jpg'},
+    {'name': 'Дмитро', 'text': 'Все швидко і просто. Рекомендую друзям!', 'img': 'https://randomuser.me/api/portraits/men/46.jpg'}
+  ] %}
+  {% for review in reviews %}
+  <div class="col-md-4 text-center mb-3">
+    <div class="card p-3 border-0 shadow rounded-4 bg-light">
+      <img src="{{ review.img }}" alt="{{ review.name }}" class="rounded-circle mx-auto mb-2" style="width:60px;height:60px;object-fit:cover;">
+      <strong>{{ review.name }}</strong>
+      <div class="mt-2">{{ review.text }}</div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- Контакти -->
+<div class="card mb-0 shadow-sm rounded-4">
+  <div class="card-body text-center">
+    <h5 class="mb-2">Наші контакти</h5>
+    <div>Телефон: <a href="tel:+380441234567">+38 (044) 123-45-67</a></div>
+    <div>Email: <a href="mailto:support@tutorlink.com">support@tutorlink.com</a></div>
+    <div>м. Київ, вул. Освіти, 12</div>
+    <div class="text-muted small mt-2">© 2025 TutorLink — онлайн-платформа бронювання репетиторів</div>
+  </div>
+</div>
+{% endblock %}

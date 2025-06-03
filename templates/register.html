@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 70vh;">
+  <div class="col-md-6 col-lg-5">
+    <div class="card p-4 shadow-sm rounded-4">
+      <div class="text-center mb-4">
+        <img src="https://img.icons8.com/fluency/48/add-user-group-man-man.png" width="48" class="mb-2" alt="Реєстрація">
+        <h2 class="mb-0">Реєстрація</h2>
+      </div>
+      <form method="post">
+        <div class="mb-3">
+          <label class="form-label">Логін</label>
+          <input class="form-control" type="text" name="username" placeholder="Введіть логін" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Пароль</label>
+          <input class="form-control" type="password" name="password" placeholder="Введіть пароль" required>
+        </div>
+        <div class="mb-3 form-check">
+          <input class="form-check-input" type="checkbox" name="is_tutor" id="is_tutor"
+                 onchange="document.getElementById('tutor-extra').style.display=this.checked?'block':'none';">
+          <label class="form-check-label" for="is_tutor">Я — репетитор</label>
+        </div>
+        <div id="tutor-extra" style="display:none;">
+          <div class="mb-3">
+            <label class="form-label">Предмет</label>
+            <select class="form-select" name="subject">
+              <option value="Англійська мова">Англійська мова</option>
+              <option value="Математика">Математика</option>
+              <option value="Хімія">Хімія</option>
+              <option value="Українська мова">Українська мова</option>
+              <option value="Фізика">Фізика</option>
+              <option value="Інше">Інше</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Для кого</label>
+            <select class="form-select" name="level">
+              <option value="Школа">Для школи</option>
+              <option value="Університет">Для університету</option>
+              <option value="Дорослі">Для дорослих</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Коротко про себе <span class="text-muted small">(опціонально)</span></label>
+            <textarea class="form-control" name="about" maxlength="255" placeholder="Досвід, стиль викладання, особливості..."></textarea>
+          </div>
+        </div>
+        <div class="d-grid gap-2">
+          <button class="btn btn-success btn-lg" type="submit">Зареєструватися</button>
+        </div>
+      </form>
+      <div class="text-center mt-3">
+        <span>Вже маєте акаунт?</span>
+        <a href="{{ url_for('login') }}">Увійти</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  // Автоматичне відображення плашок, якщо повернення з помилкою/refresh з already checked
+  document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('is_tutor').checked) {
+      document.getElementById('tutor-extra').style.display='block';
+    }
+  });
+</script>
+{% endblock %}
